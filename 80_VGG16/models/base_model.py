@@ -4,16 +4,20 @@ from base_head import VGG16Head
 
 
 # ===========================================================
-# Class 1. Full VGG16 Model
+# Full VGG16 model for emotion classification.
+# Includes: VGG16Backbone, VGG16Head
 # ===========================================================
 class VGG16(nn.Module):
-    def __init__(self, num_classes=1000):
+    def __init__(self, num_classes=4, use_pretrained=True):
         super().__init__()
-        self.backbone = VGG16Backbone()
+
+        ## --- Backbone (Conv layers + pooling) ---
+        self.backbone = VGG16Backbone(use_pretrained=use_pretrained)
+
+        ## --- Head (Classifier: FC layers) ---
         self.head = VGG16Head(num_classes=num_classes)
 
     def forward(self, x):
-        x = self.backbone(x)
-        x = self.head(x)
+        x = self.backbone(x)    # Feature map
+        x = self.head(x)        # Class logits
         return x
-
