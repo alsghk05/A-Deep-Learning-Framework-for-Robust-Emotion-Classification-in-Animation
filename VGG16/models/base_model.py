@@ -1,7 +1,6 @@
 import torch.nn as nn
-from base_backbone import VGG16Backbone
-from base_head import VGG16Head
-
+from .base_backbone import VGG16Backbone
+from .base_head import VGG16Head
 
 # ===========================================================
 # Full VGG16 model for emotion classification.
